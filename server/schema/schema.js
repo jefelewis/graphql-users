@@ -29,7 +29,7 @@ const UserType = new GraphQLObjectType({
     age: {type: GraphQLInt},
     company: {
       type: CompanyType,
-      // Resolve connects one node of the graph to another node
+      // Resolve creates an Edge between each Node on the Graph
       resolve(parent, args) {
         // Axios: GET (Returns response with data attached to a 'data' object)
         return axios.get(`http://localhost:3000/companies/${parent.companyId}`)
@@ -44,6 +44,7 @@ const UserType = new GraphQLObjectType({
 const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
   fields: {
+    // User
     user: {
       type: UserType,
       args: {id: {type: GraphQLString}},
@@ -51,6 +52,17 @@ const RootQuery = new GraphQLObjectType({
         // Grab data from Database/API
         // Axios: GET (Returns response with data attached to a 'data' object)
         return axios.get(`http://localhost:3000/users/${args.id}`)
+          .then((res) => res.data);
+      }
+    },
+    // Company
+    company: {
+      type: CompanyType,
+      args: {id: {type: GraphQLString}},
+      resolve(parent, args){
+        // Grab data from Database/API
+        // Axios: GET (Returns response with data attached to a 'data' object)
+        return axios.get(`http://localhost:3000/companies/${args.id}`)
           .then((res) => res.data);
       }
     }
