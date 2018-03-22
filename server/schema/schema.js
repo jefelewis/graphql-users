@@ -29,7 +29,7 @@ const UserType = new GraphQLObjectType({
 const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
   fields: {
-    book: {
+    user: {
       type: UserType,
       args: {id: {type: GraphQLString}},
       resolve(parent, args){
