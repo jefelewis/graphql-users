@@ -5,14 +5,11 @@ const graphql = require('graphql');
 const { GraphQLSchema, GraphQLObjectType, GraphQLString, GraphQLInt } = graphql;
 
 // Imports: Lodash
-const _ = require('lodash');
+// const _ = require('lodash');
 
+// Imports: Axios
+const axios = require('axios');
 
-// GraphQL: Dummy Data
-let users = [
-  {id: '23', firstName: 'Bill', age: 20},
-  {id: '47', firstName: 'Samantha', age: 21}
-];
 
 // GraphQL: Schema
 const UserType = new GraphQLObjectType({
@@ -34,7 +31,8 @@ const RootQuery = new GraphQLObjectType({
       args: {id: {type: GraphQLString}},
       resolve(parent, args){
         // Grab data from Database/API
-        return _.find(users, {id: args.id})
+        // return _.find(users, {id: args.id})
+        return axios.get(`http://localhost:3000/users/${args.id}`)
       }
     }
   }
