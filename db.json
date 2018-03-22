@@ -1,6 +1,11 @@
 {
   "users": [
-    { "id": "23", "firstName": "Bill", "age": 20},
-    { "id": "40", "firstName": "Alex", "age": 40}   
+    { "id": "7", "firstName": "Scott", "age": 21, "companyId": "1" },
+    { "id": "40", "firstName": "Justin", "age": 27, "companyId": "2" },
+    { "id": "41", "firstName": "Frank", "age": 33, "companyId": "2" }    
+  ],
+  "companies": [
+    { "id": "1", "name": "Apple", "field": "Tech" },
+    { "id": "2", "name": "Goldman Sachs", "field": "Financial" }
   ]
 }
