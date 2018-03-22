@@ -18,9 +18,9 @@ let users = [
 const UserType = new GraphQLObjectType({
   name: 'Book',
   fields: () => ({
-    id: { type: GraphQLString },
-    firstName: { type: GraphQLString },
-    age: { type: GraphQLInt }
+    id: {type: GraphQLString},
+    firstName: {type: GraphQLString},
+    age: {type: GraphQLInt}
   })
 });
 
