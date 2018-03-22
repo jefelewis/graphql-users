@@ -2,7 +2,7 @@
 const graphql = require('graphql');
 
 // Imports: GraphQL Packages
-const { GraphQLObjectType, GraphQLString, GraphQLSchema } = graphql;
+const { GraphQLSchema, GraphQLObjectType, GraphQLString, GraphQLInt } = graphql;
 
 // Imports: Lodash
 const _ = require('lodash');
@@ -18,9 +18,9 @@ let users = [
 const UserType = new GraphQLObjectType({
   name: 'Book',
   fields: () => ({
-    id: {type: GraphQLString},
-    name: {type: GraphQLString},
-    genre: {type: GraphQLString}
+    id: { type: GraphQLString },
+    firstName: { type: GraphQLString },
+    age: { type: GraphQLInt }
   })
 });
 
