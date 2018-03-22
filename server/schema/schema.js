@@ -10,18 +10,18 @@ const _ = require('lodash');
 
 // GraphQL: Dummy Data
 let users = [
-  {id: 23, firstName: 'Bill', age: 20},
-  {id: 47, firstName: 'Samantha', age: 21}
-]
+  {id: '23', firstName: 'Bill', age: 20},
+  {id: '47', firstName: 'Samantha', age: 21}
+];
 
 // GraphQL: Schema
 const UserType = new GraphQLObjectType({
   name: 'User',
-  fields: () => ({
+  fields: {
     id: {type: GraphQLString},
     firstName: {type: GraphQLString},
     age: {type: GraphQLInt}
-  })
+  }
 });
 
 

@@ -28,5 +28,5 @@ const port = 3000;
 
 // Listener
 app.listen(port, () => {
-  console.log('The server has started on port:  ' + port);
+  console.log('The server has started on port: ' + port);
 });
