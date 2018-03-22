@@ -16,7 +16,7 @@ let users = [
 
 // GraphQL: Schema
 const UserType = new GraphQLObjectType({
-  name: 'Book',
+  name: 'User',
   fields: () => ({
     id: {type: GraphQLString},
     firstName: {type: GraphQLString},
@@ -30,7 +30,7 @@ const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
   fields: {
     book: {
-      type: BookType,
+      type: UserType,
       args: {id: {type: GraphQLString}},
       resolve(parent, args){
         // Grab data from Database/API
