@@ -2,7 +2,7 @@
 const graphql = require('graphql');
 
 // Imports: GraphQL Packages
-const { GraphQLSchema, GraphQLObjectType, GraphQLString, GraphQLInt, graphQLList, GraphQLList } = graphql;
+const { GraphQLSchema, GraphQLObjectType, GraphQLString, GraphQLInt, graphQLList, GraphQLList, GraphQLNonNull } = graphql;
 
 // Imports: Lodash
 // const _ = require('lodash');
@@ -52,7 +52,7 @@ const UserType = new GraphQLObjectType({
 // GraphQL: Root Query
 const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
-  fields: {
+  fields: () => ({
     // User
     user: {
       type: UserType,
@@ -75,7 +75,25 @@ const RootQuery = new GraphQLObjectType({
           .then((res) => res.data);
       }
     }
-  }
+  })
+});
+
+// GraphQL: Root Mutation
+const mutation = new GraphQLObjectType({
+  name: 'Mutation',
+  fields: () => ({
+    addUser: {
+      type: UserType,
+      args: {
+        firstName: { type: new GraphQLNonNull(GraphQLString) },
+        age: { type: new GraphQLNonNull(GraphQLInt) },
+        companyId: { type: GraphQLString }
+      },
+      resolve(parent, args) {
+
+      }
+    }
+  })
 });
 
 
