@@ -100,14 +100,12 @@ const mutation = new GraphQLObjectType({
     deleteUser: {
       type: UserType,
       args: {
-        firstName: { type: new GraphQLNonNull(GraphQLString) },
-        age: { type: new GraphQLNonNull(GraphQLInt) },
-        companyId: { type: GraphQLString }
+        id: { type: new GraphQLNonNull(GraphQLString) },
       },
       resolve(parent, { firstName, age }) {
         // Axios: DELETE
-        return axios.delete('http://localhost:3000/users', { firstName, age })
-          .then((res) => res.data); 
+        return axios.delete(`http://localhost:3000/users/${args.id}`, { firstName, age })
+          .then((res) => res.data);
       }
     }
   })
