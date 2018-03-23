@@ -2,7 +2,7 @@
 const graphql = require('graphql');
 
 // Imports: GraphQL Packages
-const { GraphQLSchema, GraphQLObjectType, GraphQLString, GraphQLInt } = graphql;
+const { GraphQLSchema, GraphQLObjectType, GraphQLString, GraphQLInt, graphQLList, GraphQLList } = graphql;
 
 // Imports: Lodash
 // const _ = require('lodash');
@@ -14,16 +14,25 @@ const axios = require('axios');
 // GraphQL: Schemas
 const CompanyType = new GraphQLObjectType({
   name: 'Company',
-  fields: {
+  fields: () => ({
     id: {type: GraphQLString},
     name: {type: GraphQLString},
-    field: {type: GraphQLString}
-  }
+    field: {type: GraphQLString},
+    users: {
+      type: new GraphQLList(UserType),
+      // Resolve creates an Edge between each Node on the Graph
+      resolve(parent, args) {
+        // Axios: GET (Returns response with data attached to a 'data' object)
+        return axios.get(`http://localhost:3000/companies/${parent.id}/users`)
+        .then((res) => res.data);
+      }
+    }
+  })
 })
 
 const UserType = new GraphQLObjectType({
   name: 'User',
-  fields: {
+  fields: () => ({
     id: {type: GraphQLString},
     firstName: {type: GraphQLString},
     age: {type: GraphQLInt},
@@ -36,7 +45,7 @@ const UserType = new GraphQLObjectType({
         .then((res) => res.data);
       }
     }
-  }
+  })
 });
 
 
