@@ -12,6 +12,7 @@ const axios = require('axios');
 
 
 // GraphQL: Schemas
+// Company Schema
 const CompanyType = new GraphQLObjectType({
   name: 'Company',
   fields: () => ({
@@ -30,6 +31,7 @@ const CompanyType = new GraphQLObjectType({
   })
 })
 
+// User Schema
 const UserType = new GraphQLObjectType({
   name: 'User',
   fields: () => ({
@@ -78,8 +80,9 @@ const RootQuery = new GraphQLObjectType({
   })
 });
 
-// GraphQL: Root Mutation
-const mutation = new GraphQLObjectType({
+
+// GraphQL: Root Mutations
+const Mutation = new GraphQLObjectType({
   name: 'Mutation',
   fields: () => ({
     // Add User
@@ -102,9 +105,24 @@ const mutation = new GraphQLObjectType({
       args: {
         id: { type: new GraphQLNonNull(GraphQLString) },
       },
-      resolve(parent, { firstName, age }) {
+      resolve(parent, { id }) {
         // Axios: DELETE
-        return axios.delete(`http://localhost:3000/users/${args.id}`, { firstName, age })
+        return axios.delete(`http://localhost:3000/users/${args.id}`)
+          .then((res) => res.data);
+      }
+    },
+    // Edit User
+    editUser: {
+      type: UserType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLString) },
+        firstName: { type: GraphQLString },
+        age: { type: GraphQLInt },
+        companyId: { type: GraphQLString }
+      },
+      resolve(parent, { id }) {
+        // Axios: PUT
+        return axios.patch(`http://localhost:3000/user/${args.id}`, args)
           .then((res) => res.data);
       }
     }
@@ -115,5 +133,5 @@ const mutation = new GraphQLObjectType({
 // Exports
 module.exports = new GraphQLSchema({
   query: RootQuery,
-  mutation: mutation
+  mutation: Mutation
 });
