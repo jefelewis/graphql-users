@@ -2,7 +2,15 @@
 const graphql = require('graphql');
 
 // Imports: GraphQL Packages
-const { GraphQLSchema, GraphQLObjectType, GraphQLString, GraphQLInt, graphQLList, GraphQLList, GraphQLNonNull } = graphql;
+const { 
+  GraphQLSchema,
+  GraphQLObjectType,
+  GraphQLString,
+  GraphQLInt,
+  GraphQLID,
+  GraphQLList,
+  GraphQLNonNull 
+} = graphql;
 
 // Imports: Lodash
 // const _ = require('lodash');
@@ -16,7 +24,7 @@ const axios = require('axios');
 const CompanyType = new GraphQLObjectType({
   name: 'Company',
   fields: () => ({
-    id: {type: GraphQLString},
+    id: {type: GraphQLID},
     name: {type: GraphQLString},
     field: {type: GraphQLString},
     users: {
@@ -35,7 +43,7 @@ const CompanyType = new GraphQLObjectType({
 const UserType = new GraphQLObjectType({
   name: 'User',
   fields: () => ({
-    id: {type: GraphQLString},
+    id: {type: GraphQLID},
     firstName: {type: GraphQLString},
     age: {type: GraphQLInt},
     company: {
@@ -58,7 +66,7 @@ const RootQuery = new GraphQLObjectType({
     // User
     user: {
       type: UserType,
-      args: {id: {type: GraphQLString}},
+      args: {id: {type: GraphQLID}},
       resolve(parent, args){
         // Grab data from Database/API
         // Axios: GET (Returns response with data attached to a 'data' object)
@@ -69,7 +77,7 @@ const RootQuery = new GraphQLObjectType({
     // Company
     company: {
       type: CompanyType,
-      args: {id: {type: GraphQLString}},
+      args: {id: {type: GraphQLID}},
       resolve(parent, args){
         // Grab data from Database/API
         // Axios: GET (Returns response with data attached to a 'data' object)
