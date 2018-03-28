@@ -102,9 +102,9 @@ const mutation = new GraphQLObjectType({
         companyId: { type: GraphQLString }
       },
       // Can I change to just args? Test once complete
-      resolve(parent, { firstName, age }) {
+      resolve(parent, args) {
         // Axios: POST
-        return axios.post('http://localhost:3000/users', { firstName, age })
+        return axios.post('http://localhost:3000/users', args)
           .then((res) => res.data);
       }
     },
