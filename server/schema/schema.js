@@ -120,21 +120,21 @@ const mutation = new GraphQLObjectType({
           .then((res) => res.data);
       }
     },
-    // // Edit User
-    // editUser: {
-    //   type: UserType,
-    //   args: {
-    //     id: { type: new GraphQLNonNull(GraphQLString) },
-    //     firstName: { type: GraphQLString },
-    //     age: { type: GraphQLInt },
-    //     companyId: { type: GraphQLString }
-    //   },
-    //   resolve(parent, { id }) {
-    //     // Axios: PUT
-    //     return axios.patch(`http://localhost:3000/user/${args.id}`, args)
-    //       .then((res) => res.data);
-    //   }
-    // }
+    // Edit User
+    editUser: {
+      type: UserType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLID) },
+        firstName: { type: GraphQLString },
+        age: { type: GraphQLInt },
+        companyId: { type: GraphQLString }
+      },
+      resolve(parent, args) {
+        // Axios: PUT
+        return axios.patch(`http://localhost:3000/users/${args.id}`, args)
+          .then((res) => res.data);
+      }
+    }
   })
 });
 
