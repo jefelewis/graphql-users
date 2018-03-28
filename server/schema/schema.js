@@ -90,7 +90,7 @@ const RootQuery = new GraphQLObjectType({
 
 
 // GraphQL: Root Mutations
-const Mutation = new GraphQLObjectType({
+const mutation = new GraphQLObjectType({
   name: 'Mutation',
   fields: () => ({
     // Add User
@@ -101,6 +101,7 @@ const Mutation = new GraphQLObjectType({
         age: { type: new  GraphQLNonNull(GraphQLInt) },
         companyId: { type: GraphQLString }
       },
+      // Can I change to just args? Test once complete
       resolve(parent, { firstName, age }) {
         // Axios: POST
         return axios.post('http://localhost:3000/users', { firstName, age })
@@ -111,29 +112,29 @@ const Mutation = new GraphQLObjectType({
     deleteUser: {
       type: UserType,
       args: {
-        id: { type: new GraphQLNonNull(GraphQLString) },
+        id: { type: new GraphQLNonNull(GraphQLID) },
       },
-      resolve(parent, { id }) {
+      resolve(parent, args) {
         // Axios: DELETE
         return axios.delete(`http://localhost:3000/users/${args.id}`)
           .then((res) => res.data);
       }
     },
-    // Edit User
-    editUser: {
-      type: UserType,
-      args: {
-        id: { type: new GraphQLNonNull(GraphQLString) },
-        firstName: { type: GraphQLString },
-        age: { type: GraphQLInt },
-        companyId: { type: GraphQLString }
-      },
-      resolve(parent, { id }) {
-        // Axios: PUT
-        return axios.patch(`http://localhost:3000/user/${args.id}`, args)
-          .then((res) => res.data);
-      }
-    }
+    // // Edit User
+    // editUser: {
+    //   type: UserType,
+    //   args: {
+    //     id: { type: new GraphQLNonNull(GraphQLString) },
+    //     firstName: { type: GraphQLString },
+    //     age: { type: GraphQLInt },
+    //     companyId: { type: GraphQLString }
+    //   },
+    //   resolve(parent, { id }) {
+    //     // Axios: PUT
+    //     return axios.patch(`http://localhost:3000/user/${args.id}`, args)
+    //       .then((res) => res.data);
+    //   }
+    // }
   })
 });
 
@@ -141,5 +142,5 @@ const Mutation = new GraphQLObjectType({
 // Exports
 module.exports = new GraphQLSchema({
   query: RootQuery,
-  mutation: Mutation
+  mutation: mutation
 });
